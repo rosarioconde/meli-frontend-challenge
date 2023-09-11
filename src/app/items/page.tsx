@@ -1,4 +1,4 @@
-
+import Link from "next/link";
 
 export default async function ItemsPage({ searchParams}: { searchParams: { search: string }}) {
   const { results } = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${searchParams.search}`).then(res => res.json() as Promise<{
@@ -21,7 +21,7 @@ export default async function ItemsPage({ searchParams}: { searchParams: { searc
     <section>
       <article className="grid gap-4">
         {results.map((item) => (
-          <div key={item.id} className='flex gap-4'>
+          <Link href={`/items/${item.id}` } key={item.id} className='flex gap-4'>
               <img src={item.thumbnail} alt={item.title} />
               <div>
                 <h1 className="text-xl font-bold">{item.title}</h1>
@@ -34,7 +34,7 @@ export default async function ItemsPage({ searchParams}: { searchParams: { searc
                   {item.seller_address.city.name.toLowerCase()}
                 </span>
               </div>
-          </div>
+          </Link>
         ))}
       </article>
     </section>

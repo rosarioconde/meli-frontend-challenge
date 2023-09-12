@@ -1,23 +1,7 @@
-
+import api from "@/app/services/api"
 
 export default async function ItemPage({params: {id}}: {params: {id: string}}) {
-  const item = await fetch(`https://api.mercadolibre.com/items/${id}`
-  ).then(
-    res =>
-    res.json() as Promise<{
-      id: string;
-      title: string;
-      thumbnail: string;
-      price: number;
-      currency_id: string;
-   }>)
-
-   const {plain_text} = await fetch(`https://api.mercadolibre.com/items/${id}/description`
-   ).then(
-     res =>
-     res.json() as Promise<{
-       plain_text: string;
-    }>)
+  const item = await api.item.fetch(id)
 
   return (
     <section className="grid gap-2">
@@ -30,7 +14,7 @@ export default async function ItemPage({params: {id}}: {params: {id: string}}) {
             })}
           </h2>
           <hr />
-          <p className="p-5" >{plain_text}</p>
+          <p className="p-5" >{item.description}</p>
         </div>
 
     </section>

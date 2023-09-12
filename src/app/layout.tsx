@@ -17,7 +17,7 @@ export default function RootLayout({
       <body>
         <header className='h-16 bg-yellow-300 flex'>
           <form action="/items" className='flex px-4 max-w-screen-lg m-auto flex-1 gap-4'>
-            <input className='h-8 flex-1 text-gray-700 px-2' type="text" name="search" />
+            <input className='h-8 flex-1 text-white-200 px-2' type="text" name="search" />
             <button className='h-8 bg-gray-300 px-2 py-1 text-slate-700' type='submit'>Buscar</button>
           </form>
         </header>

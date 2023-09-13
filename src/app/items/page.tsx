@@ -1,27 +1,14 @@
-
+import Link from "next/link";
+import api from "../services/api";
 
 export default async function ItemsPage({ searchParams}: { searchParams: { search: string }}) {
-  const { results } = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${searchParams.search}`).then(res => res.json() as Promise<{
-    results: {
-      id: string;
-      title: string;
-      thumbnail: string;
-      price: number;
-      currency_id: string;
-      seller_address: {
-        city: {
-          name: string;
-      }
-    }
-    }[]
-   }>)
-
+  const { results } = await api.item.search(searchParams.search)
 
   return (
     <section>
       <article className="grid gap-4">
         {results.map((item) => (
-          <div key={item.id} className='flex gap-4'>
+          <Link href={`/items/${item.id}` } key={item.id} className='flex gap-4'>
               <img src={item.thumbnail} alt={item.title} />
               <div>
                 <h1 className="text-xl font-bold">{item.title}</h1>
@@ -34,7 +21,7 @@ export default async function ItemsPage({ searchParams}: { searchParams: { searc
                   {item.seller_address.city.name.toLowerCase()}
                 </span>
               </div>
-          </div>
+          </Link>
         ))}
       </article>
     </section>
